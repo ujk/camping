@@ -1,37 +1,32 @@
-= Getting Started
+= Başlangıç
 
-Start a new text file called nuts.rb. Here's what you put inside:
+Yeni bir text dosya açın ve nuts.rb adını verin. İçin de şunu yazın:
  
   Camping.goes :Nuts
 
-Save it. Then, open a command prompt in the same directory. You'll want to
-run:
+Kaydedin , sonra komut satırında şunu girin:
 
   $ camping nuts.rb
 
-And you should get a message which reads:
+Şöyle bir mesaj almalısınız:
 
   ** Camping running on 0.0.0.0:3301.
 
-This means that right now The Camping Server is running on port 3301 on your
-machine. Open your browser and visit http://localhost:3301/.
+Bunun anlamı, Camping server şimdi makinanızın 3301 portunda çalışmaya başladı. Tarayıcınızı açın ve http://localhost:3301/ adresine gidin.
 
-Your browser window should show:
+Tarayıcı penceresinde şunu gösterir:
 
   Camping Problem!
   
   / Not found
 
-No problem with that. The Camping Server is running, but it doesn't know what
-to show. Let's tell him.
+Burada bir hata yok. Camping server çalışıyor ama size ne göstereceğini bilmiyor. Öyleyse kendisine öğretelim.
 
-== Hello clock
+== Merhaba Saat
 
-So, you've got Camping installed and it's running. Keep it running. You can
-edit files and The Camping Server will reload automatically. When you need to
-stop the server, press Control-C.
+Peki, Camping kurulu ve çalışıyor. Çalışır durumda tutun, Camping server çalışırken dosyalarda düzenleme yapabilirsiniz, otomatik olarak yüklenecektir. Server'ı durdurmak isterseniz Control-C basın.
 
-Let's show something. At the bottom of nuts.rb add:
+Hadi bişeyler gösterelim. nuts.rb dosyası alt kısmına şunu ekleyin:
 
   module Nuts::Controllers
     class Index < R '/'
@@ -41,14 +36,13 @@ Let's show something. At the bottom of nuts.rb add:
     end
   end
 
-Save the file and refresh the browser window. Your browser window should show
-the time, e.g.
+Dosyayı saklayın ve tarayıcı penceresini tazeleyin. Tarayıcınız zamanı gösterecektir, şöyle bişey.
 
   Sun Jul 15 12:56:15 +0200 2007
 
-== Enjoying the view
+== Görseli Düzenlemek 
 
-The Camping microframework allows us to separate our code using the MVC
+Camping microframework kodumuzu MVC (Model-View-Controller) paternine uygun parçalamamıza olanak sağlar allows us to separate our code using the MVC
 (Model-View-Controller) design pattern. Let's add a view to our Nuts
 application. Replace the <tt>module Nuts::Controllers</tt> with:
 
