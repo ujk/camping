@@ -12,7 +12,7 @@ Kaydedin , sonra komut satırında şunu girin:
 
   ** Camping running on 0.0.0.0:3301.
 
-Bunun anlamı, Camping server şimdi makinanızın 3301 portunda çalışmaya başladı. 
+Bunun anlamı, Camping server şimdi makinanızın 3301 portunda çalışmaya başladı.
 Tarayıcınızı açın ve http://localhost:3301/ adresine gidin.
 
 Tarayıcı penceresinde şunu gösterir:
@@ -42,9 +42,9 @@ Dosyayı saklayın ve tarayıcı penceresini tazeleyin. Tarayıcınız zamanı g
 
   Sun Jul 15 12:56:15 +0200 2007
 
-== Görseli Düzenlemek 
+== Görseli Düzenlemek
 
-Camping microframework kodumuzu MVC (Model-View-Controller) paternine uygun parçalamamıza olanak sağlar 
+Camping microframework kodumuzu MVC (Model-View-Controller) paternine uygun parçalamamıza olanak sağlar
 Haydi Nuts uyuglamamıza bir görsel ekleyelim. <tt>module Nuts::Controllers</tt>'i şöyle değiştirin:
 
   module Nuts::Controllers
@@ -77,25 +77,25 @@ Dosyayı kaydedip tarayıcınızda sayfayı tazeleyin. Şöyle bir mesaj çıkac
 
 Ve sayfamızın title barında şimdi "Nuts And GORP" yazıyor.
 
-Burda gördüğünüz gibi kontrolörümüzden <tt>render :sundial</tt> komutunu veriyoruz. 
-Bu aynen anlaşıldığı manaya geliyor, <tt>sundial</tt> metodu çıktısını yayınlıyor. 
-Ayrıca <tt>layout</tt> adında özel bir metod da çağırdık, adından da anlaşıldığı gibi 
-bu sayfanın  yerleşim kalıbı oluyor ve markaby formatında bizim sundial metod çıktımız 
-bunun içinde gösteriliyor. Eğer HTML ile haşır neşirseniz görseldeki ifadelerin HTML 
-tag isimlerine benzerliğini farketmişsinizdir. Bu yapı HTML'i Ruby kullanarak yazmayı 
-sağlayan Markaby yapısıdır. Zaten Markaby gem yüklü olmadan Camping server çalıştırırsanız 
-bu sayfayı göstermeye kalktığınızda Markaby gem yüklü olmadığını belirten bir hata mesajı 
+Burda gördüğünüz gibi kontrolörümüzden <tt>render :sundial</tt> komutunu veriyoruz.
+Bu aynen anlaşıldığı manaya geliyor, <tt>sundial</tt> metodu çıktısını yayınlıyor.
+Ayrıca <tt>layout</tt> adında özel bir metod da çağırdık, adından da anlaşıldığı gibi
+bu sayfanın yerleşim kalıbı oluyor ve markaby formatında bizim sundial metod çıktımız
+bunun içinde gösteriliyor. Eğer HTML ile haşır neşirseniz görseldeki ifadelerin HTML
+tag isimlerine benzerliğini farketmişsinizdir. Bu yapı HTML'i Ruby kullanarak yazmayı
+sağlayan Markaby yapısıdır. Zaten Markaby gem yüklü olmadan Camping server çalıştırırsanız
+bu sayfayı göstermeye kalktığınızda Markaby gem yüklü olmadığını belirten bir hata mesajı
 alırsınız, bu durumda klasik "sudo gem install markaby" ile yüklemelisiniz!
 
-Gördüğünüz gibi kontrolör üzerinden herhangibir şeyi cevap olarak dönebilirsiniz ve 
-bu cevap tarayıcınıza gönderilir. Fakat buna daha sonra dönelim ve routing (yönlendirme) 
+Gördüğünüz gibi kontrolör üzerinden herhangibir şeyi cevap olarak dönebilirsiniz ve
+bu cevap tarayıcınıza gönderilir. Fakat buna daha sonra dönelim ve routing (yönlendirme)
 yapılarını inceleyelim.
 
 == Yönlendirmeler
 
 Büyük ihtimal önceki sayfadaki acayip <tt>R '/'</tt> deyimini farkettiniz.
-Bu Ruby'nin bizim microframework'umuzda kullanılan ve kontrolöre nasıl erişileceğini 
-belirten yönlendirmelerin standart dışı bir ifadesi. 
+Bu Ruby'nin bizim microframework'umuzda kullanılan ve kontrolöre nasıl erişileceğini
+belirten yönlendirmelerin standart dışı bir ifadesi.
 
 Bu yönlendirmeler çok güçlüdürler ama biz şimdi en basitinden başlayacağız.
 
@@ -131,7 +131,7 @@ Bu yönlendirmeler çok güçlüdürler ama biz şimdi en basitinden başlayaca�
   
 Bunları nuts.rb dosyasına ekleyin ve tüm kontrolörlere ulaştığınızı test edin.
 
-Ayrıca dikkat ettiyseniz parantez içinde tanımlanan şeyler metoda parametre olarak 
+Ayrıca dikkat ettiyseniz parantez içinde tanımlanan şeyler metoda parametre olarak
 aktarılıyor ve istediğiniz gibi kullanabilirsiniz.
 
 === Basit (ama akıllı) Yönlendirmeler
@@ -170,15 +170,14 @@ Bir de şunları deneyin:
     end
   end
   
-<tt>< R</tt>-parçasını çıkarınca sistem aklınızdan geçeni okumaya başlar. Her zaman 
+<tt>< R</tt>-parçasını çıkarınca sistem aklınızdan geçeni okumaya başlar. Her zaman
 başarılı olamasa da uygulamanızı ne kadar basitleştiriyor gördünüz.
 
-== Modeling the world
+== dünyayı modellemek 
 
-You can get pretty far with what you've learned now, and hopefully you've been
-playing a bit off-book, but it's time to take the next step: Storing data.
+Bu kadar oyun sonrasında şimdi verilerin nasıl saklanacağı konusuna gelelim
 
-Let's start over again.
+Baştan başlıyoruz.
 
   Camping.goes :Nuts
 
@@ -187,15 +186,15 @@ Let's start over again.
     end
   end
   
-Obviously, this won't do anything, since we don't have any controllers, but
-let's rather have a look at we _do_ have.
+açıkça belli ki bu hiç birşey yapmıyor, çünkü bir kontrolörümüz yok ama önce 
+neler yaptığımızı bir inceleyelim.
 
-We have a model named Page. This means we now can store wiki pages and
-retrieve them later. In fact, we can have as many models as we want. Need one
-for your users and one for your blog posts? Well, I think you already know how
-to do it.
+Page adında bir modelimiz oldu. Bunun anlamı artık wiki sayfaları kaydedip 
+yayınlayabiliriz. Gerçekte istediğimiz kadar modelimiz olabilir. Bir tane 
+kullanıcılar için bir tane blog gönderileriniz için olabilir mesela? 
+Pekala Rails nilenler bunu nasıl yapacaklarını biliyordur.
 
-However, our model is missing something essential: a skeleton.
+Binananazalik modelimizin bişeyi eksik: iskeleti.
   
   Camping.goes :Nuts
   
@@ -207,8 +206,8 @@ However, our model is missing something essential: a skeleton.
       def self.up
         create_table Page.table_name do |t|
           t.string :title
-          t.text   :content
-          # This gives us created_at and updated_at
+          t.text :content
+          # bu satır ile created_at ve updated_at bilgileri eklenir
           t.timestamps
         end
       end
@@ -219,50 +218,52 @@ However, our model is missing something essential: a skeleton.
     end
   end
   
-Now we have our first version of our model. It says:
+Şimdi modelimizin ilk versiyonu hazır. Şöyle diyor:
 
-  If you want to migrate up to version one,
-    create the skeleton for the Page model,
-    which should be able to store,
-      "title" which is a string,
-      "content" which is a larger text,
-      "created_at" which is the time it was created,
-      "updated_at" which is the previous time it was updated.
+  Eğer versiyon 1.0'a migrate istersen,
+    Page modeli için iskeleti oluştur,
+    şu verileri sklamak için,
+      "title" string değeri,
+      "content" text değeri,
+      "created_at" kaydın üretildiği zamanın değeri,
+      "updated_at" kaydın en son değiştirildiği zaman değeri.
     
-  If you want to migrate down from version one,
-    remove the skeleton for the Page model.
+  Eğer versiyon 1.0'dan geri dönmek istersen,
+    Page modelinin iskeletini sil.
     
-This is called a _migration_. Whenever you want to change or add new models you simply add a new migration below, where you increase the version number. All of these migrations builds upon each other like LEGO blocks.
+Buna _migration_ denir. Ne zaman bir modeli değiştirme ya da yenisini 
+eklemek isterseniz altına bir migration ekleyin ve versiyon numarasını 
+artırın. Tüm bu migrationlar sırayla lego gibi işlenir. 
 
-Now we just need to tell Camping to use our migration. Write this at the bottom of nuts.rb
+Şimdi Camping'e bizim migrationumuzu kullanmasını öğreteceğiz. En alta şunu 
+yazın : 
 
   def Nuts.create
     Nuts::Models.create_schema
   end
 
-When The Camping Server boots up, it will automatically call
-<tt>Nuts.create</tt>. You can put all kind of startup-code here, but right now
-we only want to create our skeleton (or upgrade if needed). Start The Camping
-Server again and observe:
+Camping server çalıştırdığınızda otomatik olarak <tt>Nuts.create</tt> 
+çağrılır. Tüm startup kodları buraya koyabilirsiniz, ama biz şimdilik sadece 
+iskeletimizi üreten kodu koyacağız. Camping çalıştırınca şunu görürsünüz:
   
   $ camping nuts.rb
   ** Starting Mongrel on 0.0.0.0:3301
   -- create_table("nuts_schema_infos")
      -> 0.1035s
-  ==  Nuts::Models::BasicFields: migrating ===================================
+  == Nuts::Models::BasicFields: migrating ===================================
   -- create_table(:nuts_pages)
      -> 0.0033s
-  ==  Nuts::Models::BasicFields: migrated (0.0038s) ==========================
+  == Nuts::Models::BasicFields: migrated (0.0038s) ==========================
   
-Restart it, and enjoy the silence. There's no point of re-creating the
-skeleton this time.
+Tekrar durdurup çalıştırırsanız hiç birşey gelmez. Çünkü iskeletimiz 
+oluşturuldu veri tabanında tablolar eklendi.
 
-Before we go on, there's one rule you must known: Always place your models
-before your migrations.
+Devam etmeden önce şunu hatırlatalım modellerin herzaman migrationların 
+öncesinde tanımlanması gerekir.
 
-== Using our model
+== Modelimizi kullanalım
 
-Let's explore how our model works by going into the _console_
+Haydi _konsol_ ile modelimizin nasıl çalıştığını görelim
 
   $ camping -C nuts.rb
   ** Starting console
@@ -275,7 +276,7 @@ own pages.
   >> Page = Nuts::Models::Page
   
   >> hiking = Page.new(:title => "Hiking")
-  >> hiking.content = "You can also set the values like this."
+  >> hiking.content = "Değerleri böyle de girebilirsiniz."
   >> hiking.save
 
   >> page = Page.find_by_title("Hiking")
@@ -290,18 +291,18 @@ own pages.
   >> Page.find_by_title("Fishing")
   => nil
   
-  ## Page.create automatically saves the page for you.
+  ## Page.create kaydı otomatik olarak kaydeder.
   >> Page.create(:title => "Fishing", :content => "Go fish!")
   
   >> Page.count
   => 2
   
-Now I have two pages: One about hiking and one about fishing.
+Şimdi 2 sayfamız var: Birinin başlığı hiking diğerinin Fishing.
 
-== Wrapping it up
+== Derleyip toplamak
 
-Wouldn't it be nice if we could show this wonderful our pages in a browser?
-Update nuts.rb so it also contains something like this:
+Ne dersiniz bu harika sayfaları tarayıcımızda göstersek çok güzel olmaz mı? 
+nuts.rb dosyasını şöyle düzenleyin:
 
   module Nuts::Controllers
     class Pages
@@ -322,7 +323,7 @@ Update nuts.rb so it also contains something like this:
 
   module Nuts::Views
     def list
-      h1 "All pages"
+      h1 "Tüm Sayfalar"
       ul do
         @pages.each do |page|
           li do
@@ -338,26 +339,28 @@ Update nuts.rb so it also contains something like this:
     end
   end
   
-Here we meet our first _helper_:
+Burada ilk _helper_ metodu görüyoruz:
 
   R(PageX, page.title)
   
-This is the <em>reversed router</em> and it generates a URL based on a
-controller. Camping ships with a few, but very useful, helpers and you can
-easily add your owns. Have a look at Camping::Helpers for how you use these.
+Bu bir <em>ayrılmış yönlendirici</em> dir ve kontrolör üzerinden bir URL 
+üretir. Camping az sayıda ama etkili helper metodlarla gelir, kendi 
+metodlarınızı da tanımlayabilirsiniz. Camping::Helpers konusu bunu 
+anlatıyor. 
   
-There's a lot of improvements you could do here. Let me suggest:
+Burada kendinizi geliştirmek için yapabileceğiniz şeyler var. Bazıları şöyle:
 
-* Show when the page was created and last updated.
-* What happens when the page doesn't exist?
-* What should the front page show?
-* Add a layout.
-* Jazz it up a bit.
+* Sayfanın nezaman üretildiğini ve en son ne zaman update edildiğini 
+gösterin.
+* Sayfa yoksa ne olur?
+* Ön sayfa ne göstermelidir?
+* Bir layout ekleyin.
+* Biraz canlı görüntüler yapın.
  
-== The last touch
+== Son Rötuşlar
 
-We have one major flaw in our little application. You can't edit or add new
-pages. Let's see if we can fix that:
+Uygulamamızda koca bir çatlak var. Yeni sayfa ekleyemiyor ve edit 
+edemiyoruz. Haydi bunu nasıl yapacağımızı görelim:
 
   module Nuts::Controllers
     class PageX
@@ -370,9 +373,9 @@ pages. Let's see if we can fix that:
       end
       
       def post(title)
-        # If it doesn't exist, initialize it:
+        # Eğer yoksa yenisini üret:
         @page = Page.find_or_initialize_by_title(title)
-        # This is the same as:
+        # Bu şu satırla aynı:
         # @page = Page.find_by_title(title) || Page.new(:title => title)
         
         @page.content = @input.content
@@ -389,11 +392,13 @@ pages. Let's see if we can fix that:
     end
   end
   
-The core of this code lies in the new <tt>post</tt> method in the PageX
-controller. When someone types an address or follows a link, they'll end up at
-the <tt>get</tt> method, but you can easily create a form which rather sends
-you to the <tt>post</tt> when submitted.
+Bu kodların kemik noktası PageX kontrolörü <tt>post</tt> metodunda yatar. 
+Bir kullanıcı linke tıklayınca ya da adres girince <tt>get</tt> metoduna 
+gider. Ama bir form oluşturur ve orda veriyi toplayıp gönderirseniz 
+<tt>post</tt> metoduna ulaşırsınız.
 
+Kullanabileceğiniz başka isimler de var fakat her zaman çalışmayabilir. Bu 
+yüzden aceleci olmayın ve bir süre daha <tt>get</tt> ve <tt>post</tt> ile devam edin. Nasıl çalıştığını ilerde göstereceğiz.
 There are other names you can use, but they won't always work. So for now,
 don't be fancy and just stick to <tt>get</tt> and <tt>post</tt>. We'll show
 you how this really works later.
@@ -439,4 +444,5 @@ let's recap for a moment:
 Unfortunately, the book stops here for now. Come back in a few months, or join
 the mailing list to stay updated, and hopefully there's another chapter
 waiting for you.
+
 
