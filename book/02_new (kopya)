@@ -12,7 +12,8 @@ Kaydedin , sonra komut satırında şunu girin:
 
   ** Camping running on 0.0.0.0:3301.
 
-Bunun anlamı, Camping server şimdi makinanızın 3301 portunda çalışmaya başladı. Tarayıcınızı açın ve http://localhost:3301/ adresine gidin.
+Bunun anlamı, Camping server şimdi makinanızın 3301 portunda çalışmaya başladı.
+Tarayıcınızı açın ve http://localhost:3301/ adresine gidin.
 
 Tarayıcı penceresinde şunu gösterir:
 
@@ -24,7 +25,8 @@ Burada bir hata yok. Camping server çalışıyor ama size ne göstereceğini bi
 
 == Merhaba Saat
 
-Peki, Camping kurulu ve çalışıyor. Çalışır durumda tutun, Camping server çalışırken dosyalarda düzenleme yapabilirsiniz, otomatik olarak yüklenecektir. Server'ı durdurmak isterseniz Control-C basın.
+Peki, Camping kurulu ve çalışıyor. Çalışır durumda tutun, Camping server çalışırken dosyalarda düzenleme yapabilirsiniz,
+ otomatik olarak yüklenecektir. Server'ı durdurmak isterseniz Control-C basın.
 
 Hadi bişeyler gösterelim. nuts.rb dosyası alt kısmına şunu ekleyin:
 
@@ -40,11 +42,10 @@ Dosyayı saklayın ve tarayıcı penceresini tazeleyin. Tarayıcınız zamanı g
 
   Sun Jul 15 12:56:15 +0200 2007
 
-== Görseli Düzenlemek 
+== Görseli Düzenlemek
 
-Camping microframework kodumuzu MVC (Model-View-Controller) paternine uygun parçalamamıza olanak sağlar allows us to separate our code using the MVC
-(Model-View-Controller) design pattern. Let's add a view to our Nuts
-application. Replace the <tt>module Nuts::Controllers</tt> with:
+Camping microframework kodumuzu MVC (Model-View-Controller) paternine uygun parçalamamıza olanak sağlar
+Haydi Nuts uyuglamamıza bir görsel ekleyelim. <tt>module Nuts::Controllers</tt>'i şöyle değiştirin:
 
   module Nuts::Controllers
     class Index < R '/'
@@ -66,57 +67,61 @@ application. Replace the <tt>module Nuts::Controllers</tt> with:
     end
 
     def sundial
-      p "The current time is: #{@time}"
+      p "The current time is: #{@time.strftime('%H:%M:%S')}"
     end
   end
   
-Save the file and refresh your browser window and it should show a message
-like:
+Dosyayı kaydedip tarayıcınızda sayfayı tazeleyin. Şöyle bir mesaj çıkacaktır:
 
-   The current time is: Sun Jul 15 13:05:41 +0200 2007
+   The current time is: 13:05:41
 
-And the window title reads "Nuts And GORP".
+Ve sayfamızın title barında şimdi "Nuts And GORP" yazıyor.
 
-Here you can see we call <tt>render :sundial</tt> from our controller. This
-does exactly what it says, and renders our <tt>sundial</tt> method. We've also
-added a special method called <tt>layout</tt> which Camping will automatically
-wrap our sundial output in. If you're familiar with HTML, you'll see that our
-view contains what looks HTML tag names. This is Markaby, which is like
-writing HTML using Ruby!
+Burda gördüğünüz gibi kontrolörümüzden <tt>render :sundial</tt> komutunu veriyoruz.
+Bu aynen anlaşıldığı manaya geliyor, <tt>sundial</tt> metodu çıktısını yayınlıyor.
+Ayrıca <tt>layout</tt> adında özel bir metod da çağırdık, adından da anlaşıldığı gibi
+bu sayfanın yerleşim kalıbı oluyor ve markaby formatında bizim sundial metod çıktımız
+bunun içinde gösteriliyor. Eğer HTML ile haşır neşirseniz görseldeki ifadelerin HTML
+tag isimlerine benzerliğini farketmişsinizdir. Bu yapı HTML'i Ruby kullanarak yazmayı
+sağlayan Markaby yapısıdır. Zaten Markaby gem yüklü olmadan Camping server çalıştırırsanız
+bu sayfayı göstermeye kalktığınızda Markaby gem yüklü olmadığını belirten bir hata mesajı
+alırsınız, bu durumda klasik "sudo gem install markaby" ile yüklemelisiniz!
 
-Soon enough, you'll find that you can return anything from the controller, and
-it will be sent to the browser. But let's keep that for later and start
-investigating the routes.
+Gördüğünüz gibi kontrolör üzerinden herhangibir şeyi cevap olarak dönebilirsiniz ve
+bu cevap tarayıcınıza gönderilir. Fakat buna daha sonra dönelim ve routing (yönlendirme)
+yapılarını inceleyelim.
 
-== Routes
+== Yönlendirmeler
 
-You probably noticed the weird <tt>R '/'</tt> syntax in the previous page.
-This is an uncommon feature of Ruby that is used in our favorite
-microframework, to describe the routes which the controller can be accessed
-on.
+Büyük ihtimal önceki sayfadaki acayip <tt>R '/'</tt> deyimini farkettiniz.
+Bu Ruby'nin bizim microframework'umuzda kullanılan ve kontrolöre nasıl erişileceğini
+belirten yönlendirmelerin standart dışı bir ifadesi.
 
-These routes can be very powerful, but we're going to have look at the
-simplest ones first.
+Bu yönlendirmeler çok güçlüdürler ama biz şimdi en basitinden başlayacağız.
 
   module Nuts::Controllers
+    # localhost:3301/welcome/yo/my/site adresi
     class Words < R '/welcome/to/my/site'
       def get
         "You got here by: /welcome/to/my/site"
       end
     end
     
+    # localhost:3301/nuts/1 veya nuts/234 vs. sayı metoda parametre oluyor
     class Digits < R '/nuts/(\d+)'
       def get(number)
         "You got here by: /nuts/#{number}"
       end
     end
 
+    # slash ( / ) içermeyen herşeyi seçmek
     class Segment < R '/gorp/([^/]+)'
       def get(everything_else_than_a_slash)
         "You got here by: /gorp/#{everything_else_than_a_slash}"
       end
     end
     
+    # bir sayı arkasından herşey (localhost:3301/5/hasan gibi)
     class DigitsAndEverything < R '/nuts/(\d+)/([^/]+)'
       def get(number, everything)
         "You got here by: /nuts/#{number}/#{everything}"
@@ -124,14 +129,14 @@ simplest ones first.
     end
   end
   
-Add this to nuts.rb and try if you can hit all of the controllers. 
+Bunları nuts.rb dosyasına ekleyin ve tüm kontrolörlere ulaştığınızı test edin.
 
-Also notice how everything inside a parenthesis gets passed into the method,
-and is ready at your disposal.
+Ayrıca dikkat ettiyseniz parantez içinde tanımlanan şeyler metoda parametre olarak
+aktarılıyor ve istediğiniz gibi kullanabilirsiniz.
 
-=== Simpler routes
+=== Basit (ama akıllı) Yönlendirmeler
 
-This just in:
+Bir de şunları deneyin:
 
   module Nuts::Controllers
     class Index
@@ -165,15 +170,14 @@ This just in:
     end
   end
   
-Drop the <tt>< R</tt>-part and it attemps to read your mind. It won't always
-succeed, but it can simplify your application once in a while.
+<tt>< R</tt>-parçasını çıkarınca sistem aklınızdan geçeni okumaya başlar. Her zaman
+başarılı olamasa da uygulamanızı ne kadar basitleştiriyor gördünüz.
 
-== Modeling the world
+== dünyayı modellemek 
 
-You can get pretty far with what you've learned now, and hopefully you've been
-playing a bit off-book, but it's time to take the next step: Storing data.
+Bu kadar oyun sonrasında şimdi verilerin nasıl saklanacağı konusuna gelelim
 
-Let's start over again.
+Baştan başlıyoruz.
 
   Camping.goes :Nuts
 
@@ -182,15 +186,15 @@ Let's start over again.
     end
   end
   
-Obviously, this won't do anything, since we don't have any controllers, but
-let's rather have a look at we _do_ have.
+açıkça belli ki bu hiç birşey yapmıyor, çünkü bir kontrolörümüz yok ama önce 
+neler yaptığımızı bir inceleyelim.
 
-We have a model named Page. This means we now can store wiki pages and
-retrieve them later. In fact, we can have as many models as we want. Need one
-for your users and one for your blog posts? Well, I think you already know how
-to do it.
+Page adında bir modelimiz oldu. Bunun anlamı artık wiki sayfaları kaydedip 
+yayınlayabiliriz. Gerçekte istediğimiz kadar modelimiz olabilir. Bir tane 
+kullanıcılar için bir tane blog gönderileriniz için olabilir mesela? 
+Pekala Rails nilenler bunu nasıl yapacaklarını biliyordur.
 
-However, our model is missing something essential: a skeleton.
+Binananazalik modelimizin bişeyi eksik: iskeleti.
   
   Camping.goes :Nuts
   
@@ -202,8 +206,8 @@ However, our model is missing something essential: a skeleton.
       def self.up
         create_table Page.table_name do |t|
           t.string :title
-          t.text   :content
-          # This gives us created_at and updated_at
+          t.text :content
+          # bu satır ile created_at ve updated_at bilgileri eklenir
           t.timestamps
         end
       end
@@ -214,50 +218,52 @@ However, our model is missing something essential: a skeleton.
     end
   end
   
-Now we have our first version of our model. It says:
+Şimdi modelimizin ilk versiyonu hazır. Şöyle diyor:
 
-  If you want to migrate up to version one,
-    create the skeleton for the Page model,
-    which should be able to store,
-      "title" which is a string,
-      "content" which is a larger text,
-      "created_at" which is the time it was created,
-      "updated_at" which is the previous time it was updated.
+  Eğer versiyon 1.0'a migrate istersen,
+    Page modeli için iskeleti oluştur,
+    şu verileri sklamak için,
+      "title" string değeri,
+      "content" text değeri,
+      "created_at" kaydın üretildiği zamanın değeri,
+      "updated_at" kaydın en son değiştirildiği zaman değeri.
     
-  If you want to migrate down from version one,
-    remove the skeleton for the Page model.
+  Eğer versiyon 1.0'dan geri dönmek istersen,
+    Page modelinin iskeletini sil.
     
-This is called a _migration_. Whenever you want to change or add new models you simply add a new migration below, where you increase the version number. All of these migrations builds upon each other like LEGO blocks.
+Buna _migration_ denir. Ne zaman bir modeli değiştirme ya da yenisini 
+eklemek isterseniz altına bir migration ekleyin ve versiyon numarasını 
+artırın. Tüm bu migrationlar sırayla lego gibi işlenir. 
 
-Now we just need to tell Camping to use our migration. Write this at the bottom of nuts.rb
+Şimdi Camping'e bizim migrationumuzu kullanmasını öğreteceğiz. En alta şunu 
+yazın : 
 
   def Nuts.create
     Nuts::Models.create_schema
   end
 
-When The Camping Server boots up, it will automatically call
-<tt>Nuts.create</tt>. You can put all kind of startup-code here, but right now
-we only want to create our skeleton (or upgrade if needed). Start The Camping
-Server again and observe:
+Camping server çalıştırdığınızda otomatik olarak <tt>Nuts.create</tt> 
+çağrılır. Tüm startup kodları buraya koyabilirsiniz, ama biz şimdilik sadece 
+iskeletimizi üreten kodu koyacağız. Camping çalıştırınca şunu görürsünüz:
   
   $ camping nuts.rb
   ** Starting Mongrel on 0.0.0.0:3301
   -- create_table("nuts_schema_infos")
      -> 0.1035s
-  ==  Nuts::Models::BasicFields: migrating ===================================
+  == Nuts::Models::BasicFields: migrating ===================================
   -- create_table(:nuts_pages)
      -> 0.0033s
-  ==  Nuts::Models::BasicFields: migrated (0.0038s) ==========================
+  == Nuts::Models::BasicFields: migrated (0.0038s) ==========================
   
-Restart it, and enjoy the silence. There's no point of re-creating the
-skeleton this time.
+Tekrar durdurup çalıştırırsanız hiç birşey gelmez. Çünkü iskeletimiz 
+oluşturuldu veri tabanında tablolar eklendi.
 
-Before we go on, there's one rule you must known: Always place your models
-before your migrations.
+Devam etmeden önce şunu hatırlatalım modellerin herzaman migrationların 
+öncesinde tanımlanması gerekir.
 
-== Using our model
+== Modelimizi kullanalım
 
-Let's explore how our model works by going into the _console_
+Haydi _konsol_ ile modelimizin nasıl çalıştığını görelim
 
   $ camping -C nuts.rb
   ** Starting console
@@ -270,7 +276,7 @@ own pages.
   >> Page = Nuts::Models::Page
   
   >> hiking = Page.new(:title => "Hiking")
-  >> hiking.content = "You can also set the values like this."
+  >> hiking.content = "Değerleri böyle de girebilirsiniz."
   >> hiking.save
 
   >> page = Page.find_by_title("Hiking")
@@ -285,13 +291,13 @@ own pages.
   >> Page.find_by_title("Fishing")
   => nil
   
-  ## Page.create automatically saves the page for you.
+  ## Page.create kaydı otomatik olarak kaydeder.
   >> Page.create(:title => "Fishing", :content => "Go fish!")
   
   >> Page.count
   => 2
   
-Now I have two pages: One about hiking and one about fishing.
+Şimdi 2 sayfamız var: Birinin başlığı hiking diğerinin Fishing.
 
 == Wrapping it up
 
@@ -434,4 +440,6 @@ let's recap for a moment:
 Unfortunately, the book stops here for now. Come back in a few months, or join
 the mailing list to stay updated, and hopefully there's another chapter
 waiting for you.
+
+
 
