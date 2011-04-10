@@ -170,9 +170,72 @@ ol.CodeRay li { white-space: pre }
 </tt>26<tt>
 </tt>27<tt>
 </tt>28<tt>
+</tt>29<tt>
+</tt><strong>30</strong><tt>
+</tt>31<tt>
+</tt>32<tt>
+</tt>33<tt>
+</tt>34<tt>
+</tt>35<tt>
+</tt>36<tt>
+</tt>37<tt>
+</tt>38<tt>
+</tt>39<tt>
+</tt><strong>40</strong><tt>
+</tt>41<tt>
+</tt>42<tt>
+</tt>43<tt>
+</tt>44<tt>
+</tt>45<tt>
+</tt>46<tt>
+</tt>47<tt>
+</tt>48<tt>
+</tt>49<tt>
+</tt><strong>50</strong><tt>
+</tt>51<tt>
+</tt>52<tt>
+</tt>53<tt>
+</tt>54<tt>
+</tt>55<tt>
+</tt>56<tt>
+</tt>57<tt>
+</tt>58<tt>
+</tt>59<tt>
+</tt><strong>60</strong><tt>
+</tt>61<tt>
+</tt>62<tt>
+</tt>63<tt>
+</tt>64<tt>
+</tt>65<tt>
+</tt>66<tt>
+</tt>67<tt>
+</tt>68<tt>
+</tt>69<tt>
+</tt><strong>70</strong><tt>
+</tt>71<tt>
+</tt>72<tt>
+</tt>73<tt>
+</tt>74<tt>
+</tt>75<tt>
+</tt>76<tt>
+</tt>77<tt>
+</tt>78<tt>
+</tt>79<tt>
+</tt><strong>80</strong><tt>
+</tt>81<tt>
+</tt>82<tt>
+</tt>83<tt>
+</tt>84<tt>
+</tt>85<tt>
+</tt>86<tt>
+</tt>87<tt>
+</tt>88<tt>
+</tt>89<tt>
+</tt><strong>90</strong><tt>
+</tt>91<tt>
+</tt>92<tt>
 </tt></pre></td>
-  <td class="code"><pre ondblclick="with (this.style) { overflow = (overflow == 'auto' || overflow == '') ? 'visible' : 'auto' }"><tt>
-</tt><span class="co">Camping</span>.goes <span class="sy">:Nuts</span><tt>
+  <td class="code"><pre ondblclick="with (this.style) { overflow = (overflow == 'auto' || overflow == '') ? 'visible' : 'auto' }"><span class="co">Camping</span>.goes <span class="sy">:Nuts</span><tt>
 </tt><tt>
 </tt><span class="r">module</span> <span class="cl">Nuts::Models</span><tt>
 </tt>    <span class="r">class</span> <span class="cl">Page</span> &lt; <span class="co">Base</span><tt>
@@ -184,7 +247,7 @@ ol.CodeRay li { white-space: pre }
 </tt>            create_table <span class="co">Page</span>.table_name <span class="r">do</span> |t|<tt>
 </tt>                t.string <span class="sy">:title</span><tt>
 </tt>                t.text   <span class="sy">:content</span><tt>
-</tt>                <span class="c"># bununla created_at ve updated_at sÃ¼tunlarÄ± oluÅŸur</span><tt>
+</tt>                <span class="c"># bununla created_at ve updated_at sütunları oluşur</span><tt>
 </tt>                t.timestamps<tt>
 </tt>            <span class="r">end</span><tt>
 </tt>        <span class="r">end</span><tt>
@@ -199,6 +262,71 @@ ol.CodeRay li { white-space: pre }
 </tt>    <span class="co">Nuts</span>::<span class="co">Models</span>.create_schema<tt>
 </tt><span class="r">end</span><tt>
 </tt><tt>
+</tt><span class="r">module</span> <span class="cl">Nuts::Controllers</span><tt>
+</tt>    <span class="r">class</span> <span class="cl">Pages</span><tt>
+</tt>        <span class="r">def</span> <span class="fu">get</span><tt>
+</tt>            <span class="c"># Sadece sayfa etiketlerini seç.</span><tt>
+</tt>            <span class="iv">@pages</span> = <span class="co">Page</span>.all(<span class="sy">:select</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">title</span><span class="dl">&quot;</span></span>)<tt>
+</tt>            render <span class="sy">:list</span><tt>
+</tt>        <span class="r">end</span><tt>
+</tt>    <span class="r">end</span><tt>
+</tt><tt>
+</tt>    <span class="r">class</span> <span class="cl">PageX</span><tt>
+</tt>        <span class="r">def</span> <span class="fu">get</span>(title)<tt>
+</tt>            <span class="r">if</span> <span class="iv">@page</span> = <span class="co">Page</span>.find_by_title(title)<tt>
+</tt>                render <span class="sy">:view</span><tt>
+</tt>            <span class="r">else</span><tt>
+</tt>                redirect <span class="co">PageXEdit</span>, title<tt>
+</tt>            <span class="r">end</span><tt>
+</tt>        <span class="r">end</span><tt>
+</tt>        <tt>
+</tt>        <span class="r">def</span> <span class="fu">post</span>(title)<tt>
+</tt>            <span class="c"># Eğer yoksa yenisini üret:</span><tt>
+</tt>            <span class="iv">@page</span> = <span class="co">Page</span>.find_or_initialize_by_title(title)<tt>
+</tt>            <span class="c"># Süper! dimi? Bu şu satırla aynı:</span><tt>
+</tt>            <span class="c"># @page = Page.find_by_title(title) || Page.new(:title =&gt; title)</span><tt>
+</tt>            <tt>
+</tt>            <span class="iv">@page</span>.content = <span class="iv">@input</span>.content<tt>
+</tt>            <span class="iv">@page</span>.save<tt>
+</tt>            redirect <span class="co">PageX</span>, title<tt>
+</tt>        <span class="r">end</span><tt>
+</tt>    <span class="r">end</span><tt>
+</tt>    <tt>
+</tt>    <span class="r">class</span> <span class="cl">PageXEdit</span><tt>
+</tt>        <span class="r">def</span> <span class="fu">get</span>(title)<tt>
+</tt>            <span class="iv">@page</span> = <span class="co">Page</span>.find_or_initialize_by_title(title)<tt>
+</tt>            render <span class="sy">:edit</span><tt>
+</tt>        <span class="r">end</span><tt>
+</tt>    <span class="r">end</span><tt>
+</tt><span class="r">end</span><tt>
+</tt><tt>
+</tt><span class="r">module</span> <span class="cl">Nuts::Views</span><tt>
+</tt>    <span class="r">def</span> <span class="fu">list</span><tt>
+</tt>        h1 <span class="s"><span class="dl">&quot;</span><span class="k">Tüm Sayfalar</span><span class="dl">&quot;</span></span><tt>
+</tt>        ul <span class="r">do</span><tt>
+</tt>            <span class="iv">@pages</span>.each <span class="r">do</span> |page|<tt>
+</tt>                li <span class="r">do</span><tt>
+</tt>                    a page.title, <span class="sy">:href</span> =&gt; R(<span class="co">PageX</span>, page.title)<tt>
+</tt>                <span class="r">end</span><tt>
+</tt>            <span class="r">end</span><tt>
+</tt>        <span class="r">end</span><tt>
+</tt>    <span class="r">end</span><tt>
+</tt><tt>
+</tt>    <span class="r">def</span> <span class="fu">view</span><tt>
+</tt>        h1 <span class="iv">@page</span>.title<tt>
+</tt>        <span class="pc">self</span> &lt;&lt; <span class="iv">@page</span>.content<tt>
+</tt>    <span class="r">end</span><tt>
+</tt>    <tt>
+</tt>    <span class="r">def</span> <span class="fu">edit</span><tt>
+</tt>                h1 <span class="iv">@page</span>.title<tt>
+</tt>                form <span class="sy">:action</span> =&gt; R(<span class="co">PageX</span>, <span class="iv">@page</span>.title), <span class="sy">:method</span> =&gt; <span class="sy">:post</span> <span class="r">do</span><tt>
+</tt>                        textarea <span class="iv">@page</span>.content, <span class="sy">:name</span> =&gt; <span class="sy">:content</span>,<tt>
+</tt>                                <span class="sy">:rows</span> =&gt; <span class="i">10</span>, <span class="sy">:cols</span> =&gt; <span class="i">50</span><tt>
+</tt>                        br<tt>
+</tt>                        input <span class="sy">:type</span> =&gt; <span class="sy">:submit</span>, <span class="sy">:value</span> =&gt; <span class="s"><span class="dl">&quot;</span><span class="k">Submit!</span><span class="dl">&quot;</span></span><tt>
+</tt>                <span class="r">end</span><tt>
+</tt>    <span class="r">end</span><tt>
+</tt><span class="r">end</span><tt>
 </tt></pre></td>
 </tr></table>
 
